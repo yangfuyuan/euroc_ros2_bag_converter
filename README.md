@@ -6,16 +6,15 @@ A tool to convert the EuRoC MAV Dataset into ROS 2 bag format
 `euroc_ros2_bag_converter` is a lightweight tool to convert the [EuRoC MAV Dataset](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) into [ROS 2](https://www.ros.org/) bag format (`.db3`). It allows users to replay EuRoC data using ROS 2 tools for testing and benchmarking SLAM, VIO, and sensor fusion algorithms.
 
 The tool supports converting:
-- Monocular or stereo image data into `sensor_msgs/msg/Image`
+- Monocular or stereo image data into `sensor_msgs/msg/Image` and `sensor_msgs/msg/CameraInfo`
 - IMU measurements into `sensor_msgs/msg/Imu`
-- Ground truth poses (if available) into `nav_msgs/msg/Odometry` or `geometry_msgs/msg/PoseStamped`
+- Ground truth poses (if available) into `nav_msgs/msg/Odometry` and `nav_msgs/msg/Path`
 
 ---
 
 ## Features
 
 - Converts EuRoC dataset to ROS 2 `.db3` bag
-- Supports configurable topics and frame names
 - Compatible with SLAM and VIO pipelines in ROS 2
 - Easy to extend for other sensors (e.g. depth, camera info, ground truth path)
 
@@ -32,6 +31,8 @@ colcon build --symlink-install && source ./install/setup.bash && source ./instal
 
 ## run
 ```bash
-# vins
+# convert
 ros2 launch  euroc_ros2_bag_converter euroc_ros2_bag_converter.launch.py
+# custom dataset
+ros2 launch euroc_ros2_bag_converter euroc_ros2_bag_converter.launch.py euroc_root:=~/dataset/euroc/MH_05_difficult bag_path:=~/dataset/euroc/MH_05_difficult/euroc.db3
 ```
